@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MoviePro.Models;
+using MoviePro.Repositories.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,11 @@ namespace MoviePro
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<GenreRepository>();
+            services.AddScoped<MovieGenreRepository>();
+            services.AddScoped<MovieRepository>();
+            services.AddScoped<UserMovieRepository>();
+            services.AddScoped<UserRepository>();
             services.AddDbContext<MovieDBContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MovieDBContext")));
             services.AddSwaggerGen(options =>
